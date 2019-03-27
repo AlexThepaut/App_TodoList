@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../models/Todo';
 import * as todoJson from '../models/todo.json';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-todo-container',
@@ -9,22 +10,25 @@ import * as todoJson from '../models/todo.json';
 })
 export class TodoContainerComponent implements OnInit {
 
-  todoList:Todo[] = todoJson.map(
-    t => new Todo(t.title, t.isDone)
+  todoList: Todo[] = todoJson.map(
+    t => new Todo(t.id, t.title, t.isDone)
   );
 
-  handleCheckBoxChange(todo){
-    let index = this.todoList.findIndex(t => t.title == todo.title);
-    this.todoList[index] = todo;
+  handleCheckBoxChange(todo) {
+    let oldTodo = this.todoList.find(t => t.title == todo.title);
+    let withoutList = _.without(this.todoList, oldTodo);
+    this.todoList = [...withoutList, {...oldTodo, isDone: !oldTodo.isDone}]
+      .sort((a, b) => a.id - b.id);
   }
 
-  handleNewTodo(titleNewCard){
-    this.todoList.push(new Todo(titleNewCard, false));
+  handleNewTodo(titleNewCard) {
+    this.todoList = [...this.todoList, new Todo(this.todoList.length+1, titleNewCard, false)];
   }
 
-  handleDeleteCard(name){
-    let index = this.todoList.findIndex(t => t.title == name);
-    this.todoList.splice(index, 1);
+  handleDeleteCard(name) {
+    let oldTodo = this.todoList.find(t => t.title == name);
+    let withoutList = _.without(this.todoList, oldTodo);
+    this.todoList = withoutList;
   }
 
   constructor() { }

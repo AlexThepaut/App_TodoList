@@ -18,7 +18,6 @@ export class TodoItemComponent implements OnInit {
   closeCardEvent: EventEmitter<string> = new EventEmitter<string>();
 
   chechCheckBoxChange(){
-    this.todo.isDone = !this.todo.isDone;
     this.checkBoxChange.emit(this.todo);
   }
 

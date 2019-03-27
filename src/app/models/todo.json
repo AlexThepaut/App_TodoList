@@ -1,21 +1,26 @@
 [
     {
+        "id": 0,
         "title": "Send a mail",
         "isDone": false
     },
     {
+        "id": 1,
         "title": "Play GUITARE",
         "isDone": true
     },
     {
+        "id": 2,
         "title": "Watch the sky",
         "isDone": false
     },
     {
+        "id": 3,
         "title": "Finish FF2CCEoT",
         "isDone": true
     },
     {
+        "id": 4,
         "title": "Eat sandwich",
         "isDone": false
     }
