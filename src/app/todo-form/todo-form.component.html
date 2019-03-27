@@ -1,0 +1,13 @@
+<div class="card bg-primary">
+  <div class="card-body">
+    <h5 class="card-title">Add a Todo</h5>
+    <div class="card-text">
+      <div class="input-group mb-3">
+        <input type="text" name="todoName" id="todoName" class="form-control" (keyup)="nameChange($event)">
+        <div class="input-group-append">
+            <input type="button" value="Save" class="btn btn-success" (click)="handleClick()">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

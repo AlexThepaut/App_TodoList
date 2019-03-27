@@ -12,10 +12,15 @@ export class TodoItemComponent implements OnInit {
   todo: Todo;
 
   @Output()
-  checkBoxChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  checkBoxChange: EventEmitter<Todo> = new EventEmitter<Todo>();
 
   chechCheckBoxChange(){
-    this.checkBoxChange.emit(true);
+    this.todo.isDone = !this.todo.isDone;
+    this.checkBoxChange.emit(this.todo);
+  }
+
+  lineThrough(){
+    return this.todo.isDone;
   }
 
   constructor() { }

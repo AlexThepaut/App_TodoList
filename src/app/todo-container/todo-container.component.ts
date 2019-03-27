@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Todo } from '../models/Todo';
 import * as todoJson from '../models/todo.json';
 
@@ -12,6 +12,16 @@ export class TodoContainerComponent implements OnInit {
   todoList:Todo[] = todoJson.map(
     t => new Todo(t.title, t.isDone)
   );
+
+  handleCheckBoxChange(todo){
+    let index = this.todoList.findIndex(t => t.title == todo.title);
+    this.todoList[index] = todo;
+  }
+
+  handleNewTodo(titleNewCard){
+    console.log("bien catch")
+    this.todoList.push(new Todo(titleNewCard, false));
+  }
 
   constructor() { }
 
