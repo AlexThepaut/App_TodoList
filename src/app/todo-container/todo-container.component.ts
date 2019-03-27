@@ -19,7 +19,6 @@ export class TodoContainerComponent implements OnInit {
   }
 
   handleNewTodo(titleNewCard){
-    console.log("bien catch")
     this.todoList.push(new Todo(titleNewCard, false));
   }
 
