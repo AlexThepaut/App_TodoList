@@ -1,2 +1,2 @@
-<app-todo-list class="card-group center" [todoList]="todoList" (checkBoxChange)="handleCheckBoxChange($event)"></app-todo-list>
+<app-todo-list class="card-group center" [todoList]="todoList" (checkBoxChange)="handleCheckBoxChange($event)" (deleteCard)="handleDeleteCard($event)"></app-todo-list>
 <app-todo-form class="form--position" (saveNewTodo)="handleNewTodo($event)"></app-todo-form>

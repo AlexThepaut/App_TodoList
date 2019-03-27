@@ -7,15 +7,22 @@ import { Todo } from '../models/Todo';
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent implements OnInit {
-  
+
   @Input()
   todoList: Todo[];
 
   @Output()
   checkBoxChange: EventEmitter<Todo> = new EventEmitter<Todo>();
 
-  handleCheckBoxChange(todo){
+  @Output()
+  deleteCard: EventEmitter<string> = new EventEmitter<string>();
+
+  handleCheckBoxChange(todo) {
     this.checkBoxChange.emit(todo);
+  }
+
+  handleCloseEvent(event) {
+    this.deleteCard.emit(event);
   }
 
   constructor() { }

@@ -14,6 +14,9 @@ export class TodoItemComponent implements OnInit {
   @Output()
   checkBoxChange: EventEmitter<Todo> = new EventEmitter<Todo>();
 
+  @Output()
+  closeCardEvent: EventEmitter<string> = new EventEmitter<string>();
+
   chechCheckBoxChange(){
     this.todo.isDone = !this.todo.isDone;
     this.checkBoxChange.emit(this.todo);
@@ -21,6 +24,10 @@ export class TodoItemComponent implements OnInit {
 
   lineThrough(){
     return this.todo.isDone;
+  }
+  
+  closeCard(event){
+    this.closeCardEvent.emit(this.todo.title);
   }
 
   constructor() { }

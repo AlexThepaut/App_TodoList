@@ -22,6 +22,11 @@ export class TodoContainerComponent implements OnInit {
     this.todoList.push(new Todo(titleNewCard, false));
   }
 
+  handleDeleteCard(name){
+    let index = this.todoList.findIndex(t => t.title == name);
+    this.todoList.splice(index, 1);
+  }
+
   constructor() { }
 
   ngOnInit() {

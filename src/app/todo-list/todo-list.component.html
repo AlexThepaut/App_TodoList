@@ -1,3 +1,3 @@
 <div *ngFor="let todo of todoList">
-  <app-todo-item class="card space" [todo]="todo" (checkBoxChange)="handleCheckBoxChange($event)"></app-todo-item>
+  <app-todo-item class="card space" [todo]="todo" (checkBoxChange)="handleCheckBoxChange($event)" (closeCardEvent)="handleCloseEvent($event)"></app-todo-item>
 </div>
