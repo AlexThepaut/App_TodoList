@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TodoItemCheckboxComponent } from './todo-item-checkbox.component';
+import { TodoListComponent } from './todo-list.component';
 
-describe('TodoItemCheckboxComponent', () => {
-  let component: TodoItemCheckboxComponent;
-  let fixture: ComponentFixture<TodoItemCheckboxComponent>;
+describe('TodoListComponent', () => {
+  let component: TodoListComponent;
+  let fixture: ComponentFixture<TodoListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TodoItemCheckboxComponent ]
+      declarations: [ TodoListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TodoItemCheckboxComponent);
+    fixture = TestBed.createComponent(TodoListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

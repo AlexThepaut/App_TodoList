@@ -1,4 +1,8 @@
 <div class="card-body">
     <h5 class="card-title">{{ todo.title }}</h5>
-    <app-todo-item-checkbox [todo]="todo" (checkBoxChange)="handleCheckBoxChange($event)"></app-todo-item-checkbox>
+    <div class="card-text">
+        <label for="mc">Todo done : </label>
+        <input class="todo--item--checkbox" type="checkbox" name="mc" id="mc" [checked]="todo.isDone" (change)="chechCheckBoxChange()">
+    </div>
+
 </div>
