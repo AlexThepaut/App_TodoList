@@ -1,44 +1,59 @@
 import { Injectable } from '@angular/core';
 import { Todo } from '../models/Todo';
-import * as todoJson from '../models/todo.json';
 import _ from 'lodash';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
 
-  todoList: Todo[] = todoJson.map(
-    t => new Todo(t.id, t.title, t.isDone)
-  );
+  todoList: Todo[];
 
-  getTodos():Promise<Array<Todo>> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.todoList)
-      }, 100);
-    });
+  constructor(private apiService: ApiService) { }
+
+  initialize() {
+    this.apiService.getAllTodos()
+      .subscribe((result: any) => {
+        this.todoList = result.map(td => new Todo(td.id, td.title, td.isDone))
+      }, () => {
+        console.log('error');
+      }, () => {
+        //console.log('complete');
+      });
   }
 
-  updateTodo(todoToChange):Promise<Array<Todo>> {
-    let oldTodo = this.todoList.find(t => t.title == todoToChange.title);
-    let withoutList = _.without(this.todoList, oldTodo);
-    this.todoList = [...withoutList, { ...oldTodo, isDone: !oldTodo.isDone }]
-      .sort((a, b) => a.id - b.id);
-    return this.getTodos();
+  add(title) {
+    this.apiService.createTodo(new Todo(this.todoList.length + 1, title, false))
+      .subscribe((result: any) => {
+        this.todoList = [...this.todoList, result].sort((a, b) => a.id - b.id);
+      }, () => {
+        console.log('error');
+      }, () => {
+        //console.log('complete');
+      });
+
   }
 
-  addCard(titleNewCard):Promise<Array<Todo>> {
-    this.todoList = [...this.todoList, new Todo(this.todoList.length + 1, titleNewCard, false)];
-    return this.getTodos();
+  toggle(todo) {
+    this.apiService.toggleTodo(todo)
+      .subscribe((result: any) => {
+        this.todoList = [..._.without(this.todoList, todo), result].sort((a, b) => a.id - b.id)
+      }, () => {
+        console.log('error');
+      }, () => {
+        //console.log('complete');
+      });
   }
 
-  deleteCard(titleCardToDelete):Promise<Array<Todo>> {
-    let oldTodo = this.todoList.find(t => t.title == titleCardToDelete);
-    let withoutList = _.without(this.todoList, oldTodo);
-    this.todoList = withoutList;
-    return this.getTodos();
+  delete(todo) {
+    this.apiService.deleteTodo(todo)
+      .subscribe((result: any) => {
+        this.todoList = _.without(this.todoList, todo);
+      }, (e: any) => {
+        console.log(e);
+      }, () => {
+        //console.log('complete');
+      });
   }
-
-  constructor() { }
 }

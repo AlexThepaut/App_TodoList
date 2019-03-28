@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { TodoService } from '../services/todo.service';
 
 @Component({
   selector: 'app-todo-form',
@@ -12,7 +13,7 @@ export class TodoFormComponent implements OnInit {
   @Output()
   saveNewTodo: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private serviceTodo: TodoService) { }
 
   ngOnInit() {
   }
@@ -22,6 +23,6 @@ export class TodoFormComponent implements OnInit {
   }
 
   handleClick() {
-    this.saveNewTodo.emit(this.title);
+    this.serviceTodo.add(this.title);
   }
 }
