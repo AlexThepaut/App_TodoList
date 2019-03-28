@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoService } from '../services/todo.service';
 import { Todo } from '../models/Todo';
-import * as todoJson from '../models/todo.json';
-import _ from 'lodash';
 
 @Component({
   selector: 'app-todo-container',
@@ -10,30 +9,32 @@ import _ from 'lodash';
 })
 export class TodoContainerComponent implements OnInit {
 
-  todoList: Todo[] = todoJson.map(
-    t => new Todo(t.id, t.title, t.isDone)
-  );
+  todoList: Todo[];
 
   handleCheckBoxChange(todo) {
-    let oldTodo = this.todoList.find(t => t.title == todo.title);
-    let withoutList = _.without(this.todoList, oldTodo);
-    this.todoList = [...withoutList, {...oldTodo, isDone: !oldTodo.isDone}]
-      .sort((a, b) => a.id - b.id);
+    this.todoService.updateTodo(todo).then((listTodo)=>{
+      this.todoList = listTodo;
+    });
   }
 
   handleNewTodo(titleNewCard) {
-    this.todoList = [...this.todoList, new Todo(this.todoList.length+1, titleNewCard, false)];
+    this.todoService.addCard(titleNewCard).then((listTodo)=>{
+      this.todoList = listTodo;
+    });
   }
 
   handleDeleteCard(name) {
-    let oldTodo = this.todoList.find(t => t.title == name);
-    let withoutList = _.without(this.todoList, oldTodo);
-    this.todoList = withoutList;
+    this.todoService.deleteCard(name).then((listTodo)=>{
+      this.todoList = listTodo;
+    });
   }
 
-  constructor() { }
+  constructor(private todoService: TodoService) { }
 
   ngOnInit() {
+    this.todoService.getTodos().then((listTodo)=>{
+      this.todoList = listTodo;
+    });
   }
 
 }
