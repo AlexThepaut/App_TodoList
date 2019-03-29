@@ -1,11 +1,13 @@
-<div class="card-body">
-    <button type="button" class="close" aria-label="Close" (click)="closeCard()">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <h5 class="card-title" [ngClass]="{'title--line': lineThrough()}">{{ todo.title }}</h5>
-    <div class="card-text">
+<mat-card>
+    <mat-card-title>
+        <h5 class="card-title" [ngClass]="{'title--line': lineThrough()}">{{ todo.title }}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="closeCard()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </mat-card-title>
+    <mat-card-content>
         <label for="mc">Todo done : </label>
         <input class="todo--item--checkbox" type="checkbox" name="mc" id="mc" [checked]="todo.isDone"
             (change)="checkBoxChange()">
-    </div>
-</div>
+    </mat-card-content>
+</mat-card>
